@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 import os
 
 # Directory for the .WAV file
-rootdir = '/home/alwi/Documents/Dataset_PA'
+rootdir = '/dir' # Put your dataset dir here
 
 # counter for the file name
 counter = 0
@@ -15,9 +15,11 @@ for dir in os.listdir(rootdir):
     # In the first directory loop through all the WAV file
     # The directory variable is used to store the all wav file of each class
     directory = rootdir + '/' + dir
-    for filename in os.listdir(directory):        
+    
+    # Than loop through all the file in the current directory
+    for filename in os.listdir(directory):       
         if filename.endswith(".wav"):            
-            y, sr = librosa.load(os.path.join(directory, filename), sr=None)
+            y, sr = librosa.load(os.path.join(directory, filename), sr=None) # Load the wav sound
             ps = librosa.feature.melspectrogram(y=y, sr=sr)
             librosa.display.specshow(librosa.power_to_db(ps, ref=np.max))
 
@@ -25,7 +27,7 @@ for dir in os.listdir(rootdir):
             plt.subplots_adjust(top = 1, bottom = 0, right = 1, left = 0, 
                         hspace = 0, wspace = 0)
             # Save the spectrogram image to the datasets file into the class (directory name)                    
-            plt.savefig('/home/alwi/Desktop/Datasets/{}/{}.png'.format(dir, counter))
+            plt.savefig('/output/{}/{}.png'.format(dir, counter)) # Put the output folder path at the output
         else:
             continue
         counter += 1
